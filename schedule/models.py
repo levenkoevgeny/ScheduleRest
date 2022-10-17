@@ -13,6 +13,7 @@ class Teacher(models.Model):
         verbose_name_plural = 'Teachers'
 
 
+
 class TrainingSession(models.Model):
     start_time = models.TimeField(verbose_name="Start time")
     end_time = models.TimeField(verbose_name="End time")
