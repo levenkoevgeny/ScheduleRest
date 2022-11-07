@@ -42,7 +42,7 @@ class Location(models.Model):
 
 class ClassRoom(models.Model):
     class_room_number = models.CharField(max_length=100, verbose_name="Classroom number")
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name="Location")
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name="Location", related_name="rooms")
 
     def __str__(self):
         return self.class_room_number + ' (' + self.location.location_address + ')'

@@ -1,7 +1,12 @@
 from rest_framework import viewsets, mixins
-from .models import ClassRoom, Group, GroupUnit, Teacher, TrainingSession, Schedule
-from .serializers import ClassRoomSerializer, GroupSerializer, GroupUnitSerializer, \
+from .models import Location, ClassRoom, Group, GroupUnit, Teacher, TrainingSession, Schedule
+from .serializers import LocationSerializer, ClassRoomSerializer, GroupSerializer, GroupUnitSerializer, \
     TeacherSerializer, TrainingSessionSerializer, ScheduleSerializer
+
+
+class LocationViewSet(viewsets.ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
 
 class ClassRoomViewSet(viewsets.ModelViewSet):

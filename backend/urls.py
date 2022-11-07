@@ -20,6 +20,7 @@ from rest_framework import routers
 from schedule import views
 
 router = routers.DefaultRouter()
+router.register(r'locations', views.LocationViewSet)
 router.register(r'classrooms', views.ClassRoomViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'group-units', views.GroupUnitViewSet)

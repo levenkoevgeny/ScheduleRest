@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import ClassRoom, Group, GroupUnit, Teacher, TrainingSession, Schedule
+from .models import Location, ClassRoom, Group, GroupUnit, Teacher, TrainingSession, Schedule
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,6 +12,14 @@ class UserSerializer(serializers.ModelSerializer):
 class ClassRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassRoom
+        fields = '__all__'
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    rooms = ClassRoomSerializer(many=True)
+
+    class Meta:
+        model = Location
         fields = '__all__'
 
 
