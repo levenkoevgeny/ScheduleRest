@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import ClassRoom, Group, Teacher, TrainingSession, Schedule
+from .models import ClassRoom, Group, GroupUnit, Teacher, TrainingSession, Schedule
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,6 +21,14 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class GroupUnitSerializer(serializers.ModelSerializer):
+    groups = GroupSerializer(many=True)
+
+    class Meta:
+        model = GroupUnit
+        fields = ['id', 'group_unit', 'groups']
+
+
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
@@ -37,3 +45,4 @@ class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = '__all__'
+        depth = 1

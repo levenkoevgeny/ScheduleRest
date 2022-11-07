@@ -1,6 +1,7 @@
 from rest_framework import viewsets, mixins
-from .models import ClassRoom, Group, Teacher, TrainingSession, Schedule
-from .serializers import ClassRoomSerializer, GroupSerializer, TeacherSerializer, TrainingSessionSerializer, ScheduleSerializer
+from .models import ClassRoom, Group, GroupUnit, Teacher, TrainingSession, Schedule
+from .serializers import ClassRoomSerializer, GroupSerializer, GroupUnitSerializer, \
+    TeacherSerializer, TrainingSessionSerializer, ScheduleSerializer
 
 
 class ClassRoomViewSet(viewsets.ModelViewSet):
@@ -11,6 +12,11 @@ class ClassRoomViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class GroupUnitViewSet(viewsets.ModelViewSet):
+    queryset = GroupUnit.objects.all()
+    serializer_class = GroupUnitSerializer
 
 
 class TeacherViewSet(viewsets.ModelViewSet):
@@ -26,3 +32,4 @@ class TrainingSessionViewSet(viewsets.ModelViewSet):
 class ScheduleViewSet(viewsets.ModelViewSet):
     queryset = Schedule.objects.all()
     serializer_class = ScheduleSerializer
+    filterset_fields = ['group__id', 'teacher__id']

@@ -22,6 +22,7 @@ from schedule import views
 router = routers.DefaultRouter()
 router.register(r'classrooms', views.ClassRoomViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'group-units', views.GroupUnitViewSet)
 router.register(r'teachers', views.TeacherViewSet)
 router.register(r'sessions', views.TrainingSessionViewSet)
 router.register(r'schedules', views.ScheduleViewSet)

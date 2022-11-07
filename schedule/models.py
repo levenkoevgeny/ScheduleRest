@@ -3,6 +3,8 @@ from django.db import models
 
 class Teacher(models.Model):
     last_name = models.CharField(max_length=100, verbose_name="Last name")
+    first_name = models.CharField(max_length=100, verbose_name="First name", blank=True, null=True)
+    patronymic = models.CharField(max_length=100, verbose_name="Patronymic", blank=True, null=True)
 
     def __str__(self):
         return self.last_name
@@ -26,11 +28,24 @@ class TrainingSession(models.Model):
         verbose_name_plural = 'Training sessions'
 
 
-class ClassRoom(models.Model):
-    class_room_number = models.CharField(max_length=100, verbose_name="Classroom number")
+class Location(models.Model):
+    location_address = models.TextField(verbose_name="address")
 
     def __str__(self):
-        return self.class_room_number
+        return self.location_address
+
+    class Meta:
+        ordering = ('id',)
+        verbose_name = 'Location'
+        verbose_name_plural = 'Locations'
+
+
+class ClassRoom(models.Model):
+    class_room_number = models.CharField(max_length=100, verbose_name="Classroom number")
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name="Location")
+
+    def __str__(self):
+        return self.class_room_number + ' (' + self.location.location_address + ')'
 
     class Meta:
         ordering = ('class_room_number',)
@@ -38,11 +53,25 @@ class ClassRoom(models.Model):
         verbose_name_plural = 'ClassRooms'
 
 
-class Group(models.Model):
-    group_name = models.CharField(max_length=100, verbose_name="Group name")
+class GroupUnit(models.Model):
+    group_unit = models.CharField(max_length=255, verbose_name="Group unit")
 
     def __str__(self):
-        return self.group_name
+        return self.group_unit
+
+    class Meta:
+        ordering = ('group_unit',)
+        verbose_name = 'GroupUnit'
+        verbose_name_plural = 'GroupUnits'
+
+
+class Group(models.Model):
+    group_name = models.CharField(max_length=100, verbose_name="Group name")
+    group_unit = models.ForeignKey(GroupUnit, on_delete=models.CASCADE, verbose_name=" Group unit",
+                                   related_name='groups')
+
+    def __str__(self):
+        return self.group_name + ' (' + self.group_unit.group_unit + ')'
 
     class Meta:
         ordering = ('group_name',)
